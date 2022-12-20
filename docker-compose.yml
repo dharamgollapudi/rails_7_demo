@@ -1,0 +1,26 @@
+version: '2'
+services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: trust
+  redis:
+    image: redis
+  memcache:
+    image: memcached
+  app:
+    build: .
+    working_dir: /app
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+      - redis
+      - memcache
+    environment:
+      PGHOST: db
+      PGUSER: postgres
+      REDIS_URL: redis://redis
+      MEMCACHE_SERVERS: memcache
+    ports:
+      - '3000:3000'  

@@ -1,0 +1,5 @@
+- name: "Docker Test %n"
+  command: .buildkite/scripts/echo-hello-world.sh
+  plugins:
+    - docker-compose#v3.0.3:
+        run: app
